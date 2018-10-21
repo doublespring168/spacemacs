@@ -1,0 +1,2 @@
+
+(setq dotspacemacs-configuration-layers (quote (helm auto-completion better-defaults emacs-lisp git markdown neotree org (shell :variables shell-default-width 40 shell-default-position (quote right)) spell-checking syntax-checking sql)))

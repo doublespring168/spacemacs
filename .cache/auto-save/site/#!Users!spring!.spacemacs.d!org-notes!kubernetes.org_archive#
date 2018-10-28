@@ -1,0 +1,50 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/spring/.spacemacs.d/org-notes/kubernetes.org
+
+
+* DONE 本地运行 dubbo demo
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 日 11:45
+  :ARCHIVE_FILE: ~/.spacemacs.d/org-notes/kubernetes.org
+  :ARCHIVE_OLPATH: k8s 整合 dubbo 实验方案
+  :ARCHIVE_CATEGORY: kubernetes
+  :ARCHIVE_TODO: DONE
+  :END:
+ ssss谁说的电对的
+ 错错错
+  CLOSED: [2018-10-28 Sun 10:35] SCHEDULED: <2018-10-30 Tue>
+
+Archived entries from file /Users/spring/.spacemacs.d/org-notes/kubernetes.org
+
+
+* DONE 本地制作可运行 docker 镜像
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 日 11:45
+  :ARCHIVE_FILE: ~/.spacemacs.d/org-notes/kubernetes.org
+  :ARCHIVE_OLPATH: k8s 整合 dubbo 实验方案/制作 dubbo provider 和 consumer docker 镜像
+  :ARCHIVE_CATEGORY: kubernetes
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE 运行 centos7-jdk docker 镜像，暴露web端口和dubbo端口
+   CLOSED: [2018-10-28 Sun 09:46]
+** DONE 上传部署包，并搭建运行环境
+   CLOSED: [2018-10-28 Sun 09:48]
+** DONE 本地测试运行环境
+   CLOSED: [2018-10-28 Sun 09:47]
+
+Archived entries from file /Users/spring/.spacemacs.d/org-notes/kubernetes.org
+
+
+* DONE 推送可运行镜像到 harbor 镜像服务器
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 日 11:45
+  :ARCHIVE_FILE: ~/.spacemacs.d/org-notes/kubernetes.org
+  :ARCHIVE_OLPATH: k8s 整合 dubbo 实验方案/制作 dubbo provider 和 consumer docker 镜像
+  :ARCHIVE_CATEGORY: kubernetes
+  :ARCHIVE_TODO: DONE
+  :END:
+** TODO ABC
+** DONE DEF
+   CLOSED: [2018-10-28 Sun 09:47]

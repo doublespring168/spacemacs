@@ -1,0 +1,83 @@
+XLM_BTC
+ETH_BTC
+DOGE_BTC
+EOS_BTC
+AE_USDT
+ETC_BTC
+BCH_BTC
+ICX_USDT
+LTC_BTC
+XRP_BTC
+ICX_BTC
+XLM_ETH
+BTS_ETH
+BTC_USDT
+BTS_BTC
+TRX_ETH
+DASH_USDT
+EOS_ETH
+QTUM_ETH
+NEO_BTC
+XMR_ETH
+ADA_USDT
+XVG_BTC
+OMG_ETH
+DASH_BTC
+ADA_ETH
+BCH_USDT
+AE_BTC
+VET_ETH
+BTS_USDT
+
+
+
+select  hour,
+MAX(CASE XLM_BTC WHEN 'ETH_BTC' THEN totalNum ELSE 0 END ) XLM_BTC,
+MAX(CASE ETH_BTC WHEN 'ETH_BTC' THEN totalNum ELSE 0 END ) ETH_BTC
+    
+
+from
+(
+SELECT sue.`name` AS 'LP',
+spt.symbol AS 'SYMBOL',
+FROM_UNIXTIME(sts.start_time/1000, '%Y-%m-%d %H:%i:%S') AS 'START',
+FROM_UNIXTIME(sts.update_time/1000, '%Y-%m-%d %H') AS 'hour',
+sts.total AS 'TOTAL', 
+sts.succs, 
+sts.succs * 100  / sts.total AS 'SUCCESS',
+sts.max  AS 'MAX', 
+sts.min AS 'MIN',
+sts.avg AS 'AVG', 
+-- (sts.update_time - sts.start_time) /  sts.succs AS '两次间隔平均时间',
+sts.g1 AS '0-50ms(N)', 
+sts.g1 * 100 / sts.succs AS '0-50ms(%)',
+sts.g2 AS '50-100ms(N)',  
+sts.g2 * 100 / sts.succs AS '50-100ms(%)',
+sts.g3 AS '100-200ms(N)',
+sts.g3 * 100 / sts.succs AS '100-200ms(%)',
+(sts.g1 * 100 / sts.succs + sts.g2 * 100 / sts.succs + sts.g3 * 100 / sts.succs)  AS totalNum
+,sts.tname 
+-- ,sts.*
+FROM sk_task_statistic sts
+JOIN sk_pri_task spt on sts.t_id = spt.id AND s_id = 100006
+JOIN sk_up_exchange sue ON spt.exchange_id = sue.id
+where sts.`start_time` > 1540267201000 AND sue.`name` = 'ZB'
+-- group by sts.tname 
+ -- and tname = 'ZB-ADA_USDT深度查询'
+ group by tname,hour
+ORDER BY tname asc, sts.start_time asc
+) tmp 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,1 +1,1 @@
-("~/.spacemacs.d/" "~/.emacs.d/")
+("~/workspace/docs/k8sxml/" "~/.emacs.d/" "~/.spacemacs.d/" "~/workspace/docs/gateway_project/")

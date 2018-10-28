@@ -1,0 +1,12 @@
+(message "hello elisp")
+
+(setq my-name "Tom")
+
+(insert  my-name)
+
+(defun  SayHello (name)
+
+     (insert  my-name name))
+ (SayHello  " Tom 2" )Tom Tom 2
+
+

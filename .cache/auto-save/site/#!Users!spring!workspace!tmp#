@@ -1,0 +1,53 @@
+
+
+(message "hello elisp")
+
+
+(setq my-name "Tom")
+
+(insert my-name)
+
+(defun SayHello (name)
+
+    (insert my-name name))
+
+(SayHello "spring")
+
+(switch-to-buffer-other-window "*test*")
+
+
+(let ((local-name " spring"))
+  (switch-to-buffer-other-window "*test*")
+  (erase-buffer)
+  (SayHello  local-name)
+  (other-window 1))
+
+
+(defun greeting (from-name)
+  (let ((your-name (read-from-minibuffer "Enter your name: ")))
+    (switch-to-buffer-other-window "*test*")
+    (erase-buffer)
+    (insert (format "Hello %s!\n\nI am %s." your-name from-name))
+    (other-window 1)))
+
+
+
+(greeting "Tom")
+
+(git-run "checkout")
+
+(progn
+  (cd-absolute "/Users/spring/.spacemacs.d")
+  (git-repo? "/Users/spring/.spacemacs.d")
+  (git-add)
+  ;; (git-branch)
+  )
+
+
+网关内部报价实验条件
+    1）单机（2U4G）；
+    2）币种对总数量30个，2个LP同时询价；
+    3）broker数量设置为20个，同时订阅下面各层级数量的币种对数；
+    4）币种对数量层级5、10、15、20、25和30；
+    5）每个层级均需要连续跑2h，然后统计每分钟内报价整合时间在20ms、30ms等时长内的数据，并绘制折线图和实验报告；
+

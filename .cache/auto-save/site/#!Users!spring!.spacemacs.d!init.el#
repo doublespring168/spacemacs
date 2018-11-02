@@ -34,7 +34,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -630,6 +630,7 @@ before packages are loaded."
     (add-to-list 'load-path "~/.spacemacs.d/lisp") ; 添加初始化文件路径
     (require 'init-cal)
     (require 'init-GUI)
+    (require 'git)
 
     ;; 开启输入一个字符替换掉你选中部分的文字
     (delete-selection-mode 1)
@@ -673,7 +674,7 @@ This function is called at the very end of Spacemacs initialization."
  '(calendar-view-diary-initially-flag t)
  '(package-selected-packages
    (quote
-    (idle-highlight-in-visible-buffers-mode yasnippet-snippets xterm-color ws-butler winum volatile-highlights vi-tilde-fringe uuidgen unfill toc-org symon string-inflection sql-indent spaceline-all-the-icons spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore request helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub treepy graphql with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump doom-modeline eldoc-eval shrink-path all-the-icons memoize f dash s define-word counsel-projectile projectile counsel swiper ivy pkg-info epl company-statistics company column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async)))
+    (yaml-mode idle-highlight-in-visible-buffers-mode yasnippet-snippets xterm-color ws-butler winum volatile-highlights vi-tilde-fringe uuidgen unfill toc-org symon string-inflection sql-indent spaceline-all-the-icons spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore request helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode g (require 'init-GUI) (require 'init-GUI)it-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub treepy graphql with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump doom-modeline eldoc-eval shrink-path all-the-icons memoize f dash s define-word counsel-projectile projectile counsel swiper ivy pkg-info epl company-statistics company column-enforce-mode clean-aindent-mode centered-cursor-mode auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async)))
  '(quelpa-update-melpa-p nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -682,7 +683,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(calendar-today ((t (:foreground "DarkOrange1" :weight bold))))
  '(highlight ((t (:foreground "DarkOrange1" :weight bold))))
- '(org-date ((t (:foreground "#3e3f42" :weight light :height 0.6 :underline nil)))) ;; org mode 日期样式
- '(org-special-keyword ((t (:foreground "#c56ec3" :height 0.6)))) ;;org mode关键字样式
+ '(org-date ((t (:foreground "#3e3f42" :weight light :height 0.6 :underline nil))))
+ '(org-special-keyword ((t (:foreground "#c56ec3" :height 0.6))))
  '(region ((t (:foreground "orange1")))))
 )

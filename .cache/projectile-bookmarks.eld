@@ -1,1 +1,1 @@
-("~/.spacemacs.d/" "~/workspace/docs/gateway_project/" "~/workspace/quickfixj-demo/" "~/workspace/docs/k8sxml/" "~/.emacs.d/")
+("~/.emacs.d/" "~/.spacemacs.d/" "~/workspace/IX/ixbo_base/" "~/workspace/IX/doc/" "~/workspace/docs/Tmp/" "~/workspace/gateway_project/" "~/workspace/server-java/" "~/workspace/shengkai-kingQ/" "~/workspace/software_configuration_backup/" "~/workspace/docs/k8sxml/")

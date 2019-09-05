@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Socketio chat</title>
+<script src="./jquery-1.7.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./socket.js"></script>
+<style>
+body {
+    padding: 20px;
+}
+#console {
+    height: 400px;
+    overflow: auto;
+}
+.username-msg {
+    color: orange;
+}
+.connect-msg {
+    color: green;
+}
+.disconnect-msg {
+    color: red;
+}
+.send-msg {
+    color: #888
+}
+</style>
+</head>
+<body>
+    <h1>Netty-socketio chat demo</h1>
+    <br />
+    <div id="console" class="well"></div>
+    <form class="well form-inline" onsubmit="return false;">
+        <input id="from" class="input-xlarge" type="text" placeholder="from. . . " />
+        <input id="to" class="input-xlarge" type="text" placeholder="to. . . " />
+        <input id="content" class="input-xlarge" type="text" placeholder="content. . . " />
+        <button type="button" onClick="sendMessage()" class="btn">Send</button>
+        <button type="button" onClick="sendDisconnect()" class="btn">Disconnect</button>
+    </form>
+</body>
+<script type="text/javascript">
+
+
+// 创建一个Socket实例
+var socket = new WebSocket('ws://localhost:13020/ws');
+// 打开Socket
+socket.onopen = function(event) {
+
+
+
+// 登录
+
+//sendTime为空
+setTimeout(function(){
+    console.log("sendTime为空 --> :");
+    socket.send('{"head": {"msgType": "LN","product":"A"},"body": {}}');},1000);
+
+//merchantNo为空
+setTimeout(function(){
+    console.log("merchantNo为空 --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "LN","product":"A"},"body": {}}');},1500);
+//密码为空
+setTimeout(function(){
+    console.log("密码为空 --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "LN","product":"A","merchantNo":"BRO2018122755514952"},"body": {}}');},2000);
+//密码不正确
+setTimeout(function(){
+    console.log("密码不正确 --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "LN","product":"A","merchantNo":"BRO2018122755514952","sign":"2568701cb7b078dc41c61dbf5d20cdca"},"body": {}}');},2500);
+//正常登录
+setTimeout(function(){
+    console.log("正常登录 --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "LN","product":"A","merchantNo":"BRO2018122755514952","sign":"2568701cb7b078dc41c61dbf5d20cdc0"},"body": {}}');},3000);
+
+
+//订阅报价 - 未传symbol
+setTimeout(function(){
+    console.log("订阅报价 - 未传symbol --> :");
+socket.send('{"head": {"sendTime":1548486692211,"msgType": "ST","product":"C"},"body": {}}');},3500);
+//订阅报价 - 未传depthNum
+setTimeout(function(){
+    console.log("订阅报价 - 未传depthNum --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "ST","product":"C"},"body": {"symbol":"EOS/USDT"}}');},4000);
+//订阅报价 - 正常
+setTimeout(function(){
+    console.log("订阅报价 - EOS/USDT --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "ST","product":"C"},"body": {"symbol":"EOS/USDT","depthNum":"6"}}');},4500);
+
+setTimeout(function(){
+    console.log("订阅报价 - BTC/USDT --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "ST","product":"C"},"body": {"symbol":"BTC/USDT","depthNum":"6"}}');},4500);
+//取消订阅的报价 - 未传symbol
+setTimeout(function(){
+    console.log("取消订阅的报价 - 未传symbol --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "UNST","product":"C"},"body": {}}');},4500);
+/**取消订阅的报价 - 正常*/
+setTimeout(function(){
+    console.log("取消订阅的报价 - EOS/USDT --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "UNST","product":"C"},"body": {"symbol":"EOS/USDT"}}');},10000);
+setTimeout(function(){
+    console.log("取消订阅的报价 - BTC/USDT --> :");
+    socket.send('{"head": {"sendTime":1548486692211,"msgType": "UNST","product":"C"},"body": {"symbol":"BTC/USDT"}}');},15000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// keytool -genkey -keysize 2048 -validity 3650 -keyalg RSA -keypass nats2019 -storepass nats2019 -keystore wss.jks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//登出
+setTimeout(function(){socket.send('{"head": {"sendTime":1548486692211,"msgType": "LT","product":"A"},"body": {}}');},1000000);
+
+// 监听消息
+socket.onmessage = function(event) {
+console.log('Client received a message',event.data);
+};
+// 监听Socket的关闭
+socket.onclose = function(event) {
+console.log('Client notified socket has closed',event);
+};
+// 关闭Socket....
+//socket.close()
+
+
+
+};
+
+
+
+
+
+
+
+</script>
+
+</html>

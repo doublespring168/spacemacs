@@ -1,0 +1,187 @@
+
+
+
+ws://172.29.99.25:13020/ws
+1）游客建立连接
+
+{
+    "head":{
+        "msgType":"FC",
+        "userNo":"userNo-D-20190708001"
+    }   
+}
+
+1-2）发送心跳
+{
+    "content":{
+        "beat":1
+    },
+    "device":"web",
+    "msg_code":"pong",
+    "platform":"gts2",
+    "trace":"d527bace-5fd2-44c8-9216-53c1fcfaa312",
+    "version_code":1
+}
+
+{"code":"0000","content":{"beat":1},"msg_code":"pong","trace":"667da288-ff8c-495c-8153-fb30e51f2ecb"}
+
+2）游客申请登录行情服务器
+{
+    "head":{
+        "msgType":"B",
+        "type":"Q",
+        "userNo":"userNo-D-20190708001"
+    },
+    "content":{
+        "company_id":"3",
+        "login_name":"Guest",
+        "password":""
+    },
+    "device":"web",
+    "msg_code":"login",
+    "platform":"gts2",
+    "trace":"d527bace-5fd2-44c8-9216-53c1fcfaa312",
+    "version_code":1
+}
+
+{"code":"0000","content":{"status":0},"msg_code":"Login","trace":"9003b3d8-8f91-4c4a-8c2c-d4f9c99def62"}
+{"code":"0000","content":{"current_connection_number":23,"status":1},"msg_code":"ServerStatus","trace":"2e947094-2e6a-47c5-86ec-b8058fe075a3"}
+{"code":"0000","content":{"latest_version":0,"num":165,"product_infos":[{"code_id":3158069,"company_type":64,"digit":2,"pips":1,"short_name":"New Oriental Edu & Tech","simplified":"新东方教育","traditional":"新東方教育","zone":7} ......
+
+3）游客申请订阅产品行情推送
+
+{
+    "head":{
+        "msgType":"B",
+        "type":"Q",
+        "userNo":"userNo-D-20190708001"
+    },
+    "content":{
+        "code_ids":[3158069,3158071]
+    },
+    "device":"web",
+    "msg_code":"productSubscription",
+    "platform":"gts2",
+    "trace":"d527bace-5fd2-44c8-9216-53c1ffaa3121",
+}
+
+{"code":"0000","content":{"status":0},"msg_code":"ProductSubscription","trace":"fccc020e-0f1b-43ae-8dee-19249f9b4601"}
+
+========================================================================================================================================================================================================================================
+1）用户建立连接
+
+{
+    "head":{
+        "msgType":"C",
+        "userNo":"userNo-D-201907080011"
+    }   
+}
+
+2-1）用户申请登录行情服务器
+{
+    "head":{
+        "msgType":"B",
+        "type":"Q",
+        "userNo":"userNo-D-201907080011"
+    },
+    "content":{
+        "company_id":"3",
+        "login_name":"88002439",
+        "password":"a1234567"
+    },
+    "device":"web",
+    "msg_code":"login",
+    "platform":"gts2",
+    "trace":"d527bace-5fd2-44c8-9216-53c1fcfaa312",
+    "version_code":1
+}
+
+3）订阅报价
+{
+    "head":{
+        "msgType":"B",
+        "type":"Q",
+        "userNo":"userNo-D-201907080011"
+    },
+    "content":{
+        "code_ids":[3158069,3158071]
+    },
+    "device":"web",
+    "msg_code":"productSubscription",
+    "platform":"gts2",
+    "trace":"d527bace-5fd2-44c8-9216-53c1ffaa3121",
+}
+
+
+2-2）用户申请登录交易服务器
+{
+    "head":{
+        "msgType":"B",
+        "type":"T",
+        "userNo":"userNo-D-201907080011"
+    },
+    "trace": "d527bace-5fd2-44c8-9216-53c1fcfaa312",
+    "version_code": 1,
+    "device": "web",
+    "platform": "gts2",
+    "msg_code": "login",
+    "content": {
+        "login_name": "88002439",
+        "password": "a1234567",
+        "company_id": 3
+    }
+}
+
+
+
+
+
+实现的功能（桥接中心图）
+    1）桥接中心和商户APP通过一个WS连接（A阶段）；
+    2）桥接中心和行情服务器、交易服务器分别通过一个WS连接（B阶段）；
+    3）A阶段和B阶段“初步”桥接，一个A阶段连接对应2个B阶段连接；
+    4）可实现商户APP发送数据，通过桥接中心转发到行情服务器或交易服务器，同样，桥接中心也可实现将行情服务器、交易服务器发送的消息转发到商户APP；
+
+
+
+
+{
+"trace": 4390443,
+"version_code": 1,
+"device": "web",
+"platform": "gts2",
+"msg_code": "login",
+"content": {
+"login_name": "88002439",
+"password": "a1234567",
+"company_id": 3
+}
+}
+
+
+
+java  -Denv=sit -XX:+PrintGCDateStamps -XX:+PrintGCDetails -verbose:gc  -Djava.security.egd=file:/dev/./urandom  -Xmx1024m -jar
+
+
+
+    CON("connect", "用户建立连接"),
+    LON("login", "登录"),
+    LOT("logout", "登出"),
+    PIN("PING", "发送心跳包"),
+    PSN("productSubscription", "订阅报价"),
+    KHD("klineHistoryData", "获取产品K线数据"),
+    STR("serverTimeReq", "获取服务器系统时间"),
+    SGR("serverGetReq", "获取服务器信息(含日结)"),
+    TTS("tradeTimes", "获取交易时间列表"),
+    OOR("openOrder", "下单(市价、挂单、平仓)"),
+    PLS("profitloss", "设置持仓止盈/止损"),
+    MOR("modifyOrder", "改单挂单"),
+    COR("cancelOrder", "撤单挂单"),
+    PDS("pendings", "获取挂单记录列表"),
+    DLS("deals", "获取当日成交记录列表"),
+    PTS("positions", "获取持仓记录列表"),
+
+
+
+
+

@@ -1,0 +1,27 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/spring/" . "Downloads/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/spring/Downloads/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "tmp1"
+ "JMeterWebSocketSamplers-1.2.2.jar"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/spring/Downloads/" (23904 62889 597620 336000) "check_nginx_pid.sh" "ixapi 3/" ".du..1oHLsYTDb8/" "mac-20190716.tgzar" "mac-20190716.tgzau" "mac-20190716.tgzai" "mac-20190716.tgzan" ".#publisher-2018-11-22.log" "to195.sh" "mac-20190716.tgzag" "mac-20190716.tgzat" "mac-20190716.tgzas" "sit.sh20190726" "mac-20190716.tgzaa" "mac-20190716.tgzaf" "mac-20190716.tgzao" "mac-20190716.tgzah" "deploy_packages-20190806.tgz" ".du..rMINm4nQdK/" "Nginx/" "package.sh" ".du..4Bfno2TJyR/" "拉勾32个JAVA面试必考点课程 课件pdf版/" "dsit.sh" "deploy.tgz" "mac-20190716.tgzam" "mac-20190716.tgzaj" "mac-20190716.tgzac" "mac-20190716.tgzad" "mac-20190716.tgzav" "mac-20190716.tgzaq" "mac-20190716.tgzae" "mac-20190716.tgzab" "mac-20190716.tgzak" "mac-20190716.tgzal" "mac-20190716.tgzap" ".localized" "相册/" ".DS_Store" "front-end-handbook.pdf" "APP交互文档_0822/" "IX项目流程与规范/" "Disruptor使用指南-20190823.pdf" "../" "./")
+
+ ("/Users/spring/" (23905 59674 506954 765000) ".gitbook/" "mongodbi.sh" "store/" ".#tmp1" ".3T/" ".zlogin" ".viminfo" ".nbprofiler/" ".bash_history" ".mongorc.js" ".gitconfig" ".cache/" "tmp" "fastonosql.log" "Downloads/" ".oh-my-zsh/" "backup/" ".gem/" ".bash_profile" ".m2/" ".mysql_history" "GitBook/" ".swt/" ".anydesk/" "mongodb.sh" "Documents/" ".odbcinst.ini" ".nodenv/" ".npm/" ".gitflow_export" ".zcompdump-spring-mac-5.3" "java_error_in_idea.hprof" ".Trash/" ".gradle/" ".profile" ".dbshell" "Applications/" "Movies/" ".ssh/" ".odbc.ini" ".lts/" "java_error_in_idea_1644.log" "hs_err_pid13866.log" "logs/" "Public/" ".zcompdump-Spring的MacBook Pro-5.6.2" ".bash_sessions/" "java_error_in_idea_938.log" ".cups/" ".gitignore_global" ".android/" ".node_repl_history" ".nuuid.ini" ".emacs.d/" "aiXcoder/" ".ShadowsocksX-NG/" ".oracle_jre_usage/" ".pcdn/" ".lesshst" ".mkshrc" ".irb-history" ".zcompdump-Spring的MacBook Pro-5.3" "Library/" "Desktop/" ".rvm/" ".p2/" ".zsh_history" ".spacemacs.d/" ".bundle/" "workspace/" ".zshrc.backup" "Pictures/" "deploy_packages/" "Creative Cloud Files/" ".local/" ".rocketmq_offsets/" ".zcompdump-MacBook Pro-5.3" ".zshrc" ".zshrc.pre-oh-my-zsh" ".bashrc" "docker_tmp/" ".subversion/" ".rbenv/" ".QtWebEngineProcess/" ".sogouinput/" ".z" ".tooling/" ".wget-hsts" ".hgignore_global" ".stCommitMsg" ".zcompdump-MacBook-Spring-5.3" ".CFUserTextEncoding" ".ruby-version" ".lldb/" "Enfi_Downloads/" "shd.sh" ".gnupg/" "jmeter.log" ".DS_Store" ".arthas/" ".rubymotion/" ".vim/" "Dubbo_JStack.log.2019-08-10_09:52:05" ".node-gyp/" ".docker/" ".gemrc" ".#tmp" ".idea-build/" "kill.sh" "Music/" ".config/" ".eclipse/" ".Tableau/" ".dubbo/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

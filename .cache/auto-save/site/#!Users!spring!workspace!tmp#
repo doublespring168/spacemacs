@@ -1,53 +1,89 @@
+172.31.47.219:6500,172.31.35.38:6500,172.31.36.78:6500
 
-
-(message "hello elisp")
-
-
-(setq my-name "Tom")
-
-(insert my-name)
-
-(defun SayHello (name)
-
-    (insert my-name name))
-
-(SayHello "spring")
-
-(switch-to-buffer-other-window "*test*")
-
-
-(let ((local-name " spring"))
-  (switch-to-buffer-other-window "*test*")
-  (erase-buffer)
-  (SayHello  local-name)
-  (other-window 1))
-
-
-(defun greeting (from-name)
-  (let ((your-name (read-from-minibuffer "Enter your name: ")))
-    (switch-to-buffer-other-window "*test*")
-    (erase-buffer)
-    (insert (format "Hello %s!\n\nI am %s." your-name from-name))
-    (other-window 1)))
+172.31.47.219:6501,172.31.35.38:6501,172.31.36.78:6501
 
 
 
-(greeting "Tom")
-
-(git-run "checkout")
-
-(progn
-  (cd-absolute "/Users/spring/.spacemacs.d")
-  (git-repo? "/Users/spring/.spacemacs.d")
-  (git-add)
-  ;; (git-branch)
-  )
+172.31.47.219:26000,172.31.35.38:26000,172.31.36.78:26000
 
 
-网关内部报价实验条件
-    1）单机（2U4G）；
-    2）币种对总数量30个，2个LP同时询价；
-    3）broker数量设置为20个，同时订阅下面各层级数量的币种对数；
-    4）币种对数量层级5、10、15、20、25和30；
-    5）每个层级均需要连续跑2h，然后统计每分钟内报价整合时间在20ms、30ms等时长内的数据，并绘制折线图和实验报告；
 
+172.31.47.219:2181,172.31.35.38:2181,172.31.36.78:2181
+
+
+172.31.47.219:2181?backup=172.31.35.38:2181,172.31.36.78:2181
+
+
+
+
+
+magnet:?xt=urn:btih:4C9058952DCF39FFCA88AC9357A3A5EB5DA953F7
+magnet:?xt=urn:btih:EF93DD045753D4751669F23D162C1C2DCA88F1DB
+magnet:?xt=urn:btih:84FA70F1F8D44F2012D0F564F1776D3969FFA6F7
+magnet:?xt=urn:btih:FD7F3A3732DB7EE704537B73D91383FBC21EA690
+magnet:?xt=urn:btih:FCA016C34E79CC930F178129DE6CCA75E89B75D6
+magnet:?xt=urn:btih:ED8FE156777ED8F8040CBBE4FAAF2475A845F850
+magnet:?xt=urn:btih:FCC7008D2DE21FA634766809945938CB211F6AE4
+magnet:?xt=urn:btih:AEBC3761D02CD59102DEF4EF6A043DF2DFA89963
+magnet:?xt=urn:btih:2BAA9C32CF54C63B19DA6428600915D56FA6BA99
+magnet:?xt=urn:btih:506D61A4AAAF18F2F6AB4962ACD3F1C715A3C71B
+magnet:?xt=urn:btih:8E61694559346E20FB111DC8A50065E6B1080E51
+
+
+
+
+名称	地区	创建时间	机器类型	建议	内部 IP	外部 IP	网络	连接	
+ 	asia-east1-b	2019年1月9日 下午3:08:48	
+
+default	 	
+	asia-east1-b	2019年1月9日 下午3:06:32	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 下午3:08:13	
+
+default	 	
+	asia-east1-b	2019年1月9日 下午3:07:35	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 下午3:14:57	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:36:52	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:37:27	
+
+default	 	
+	asia-east1-b	2019年1月9日 下午3:10:41	
+
+default	 	
+	asia-east1-b	2019年1月9日 下午3:11:04	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 下午3:13:09	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:39:00	
+ 
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:38:30	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:35:47	
+
+default	 	
+ 	asia-east1-b	2019年1月9日 上午10:43:38	
+	asia-east1-b	2019年1月9日 下午3:00:36	
+
+default	 	
+
+
+
+
+chrome://flags/#allow-insecure-localhost
+
+
+ qixiaolu2006@163.com
+
+
+1518213603@qq.com - Qxl2006qxl    

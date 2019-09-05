@@ -1,0 +1,301 @@
+#!/usr/bin/env bash
+
+# rm -fr /home/`whoami`/logs/* /home/`whoami`/backup/*
+
+
+machineId=$2
+java_params=$3
+echo "$machineId"
+
+now="`date +%Y%m%d%H%M%S`"
+current_file="$(readlink -f $0)"
+
+current_user="/home/`whoami`"     # 当前用户目录
+project="shengkai_qtrading"              # 项目名
+source="${current_user}/deploy_packages/source"   # 源码目录
+publish_package_path="${current_user}/deploy_packages/project/latest" # 发布目录
+backup="${current_user}/deploy_packages/backup"   # 备份目录
+log_path="${current_user}/deploy_packages/logs"   # 日志目录
+
+profile="pre"                    # 当前环境
+
+
+# 项目模块, 主要是「模块的包名、说明、最终打成 jar 包的文件名」三个参数
+module_name_arr+=("gateway")
+module_desc_arr+=("网关")
+module_file_arr+=("gateway-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+
+module_name_arr+=("matching")
+module_desc_arr+=("撮合")
+module_file_arr+=("matching-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+
+module_name_arr+=("merchantStrategy")
+module_desc_arr+=("商户侧策略")
+module_file_arr+=("merchantStrategy-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+module_name_arr+=("upOrder")
+module_desc_arr+=("LP推单")
+module_file_arr+=("upOrder-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+
+module_name_arr+=("queryPrice")
+module_desc_arr+=("询价")
+module_file_arr+=("queryPrice-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+module_name_arr+=("transaction")
+module_desc_arr+=("LP交易")
+module_file_arr+=("transaction-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+
+module_name_arr+=("msgStorage")
+module_desc_arr+=("消息持久化")
+module_file_arr+=("msgStorage-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+module_name_arr+=("taskbatch")
+module_desc_arr+=("批处理任务")
+module_file_arr+=("taskbatch-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+module_name_arr+=("jobtracker")
+module_desc_arr+=("定时任务调度器")
+module_file_arr+=("jobtracker-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+module_name_arr+=("bridgeFix")
+module_desc_arr+=("Fix桥")
+module_file_arr+=("bridgeFix-pre")
+module_file_type+=("jar")
+module_deploy_path_arr+=("${current_user}/servers")
+
+
+print_error() {
+    echo -e "\033[31m[error] ------------------------------------------------------------------------\033[0m"
+    echo -e "\033[31m[error] ${1}\033[0m" # 红
+    echo -e "\033[31m[error] ------------------------------------------------------------------------\033[0m"
+}
+error_and_exit() {
+    print_error "$1"
+    exit 1
+}
+
+if [ "root" = "`whoami`" ]; 
+	then
+  error_and_exit "不要使用 root 运行此脚本! 请切换成普通用户!"
+fi
+
+# 检查目录, 没有就直接退出
+check_directory() {
+    if [ ! -d "${1}" ]; then
+        error_and_exit "目录 ${1} 不存在, 无法完成此操作"
+    fi
+}
+
+# 检查目录, 没有就递归创建
+check_create_directory() {
+    if [ ! -d "${1}" ]; then
+        mkdir -p "$1"
+    fi
+}
+
+# 检查文件, 没有就直接退出
+check_file() {
+    if [ ! -e "${1}" ]; then
+        error_and_exit "文件 ${1} 不存在, 无法完成此操作"
+    fi
+}
+
+log_in_file() {
+    check_create_directory ${log_path}
+    print_info "${1}"
+    echo ${1} >> "${log_path}/INSTALL.log"
+}
+
+log() {
+    echo "[INFO] ------------------------------------------------------------------------"
+    echo -e "[INFO] ${1}"
+    echo "[INFO] ------------------------------------------------------------------------"
+}
+print_info() {
+    echo -e "\033[34m[INFO] ------------------------------------------------------------------------\033[0m"
+    echo -e "\033[34m[INFO] ${1}\033[0m" # 蓝. 30(黑), 32(绿), 33(黄), 35(紫), 36(天蓝), 37(白)
+    echo -e "\033[34m[INFO] ------------------------------------------------------------------------\033[0m"
+}
+
+
+# 根据jar包名称杀进程
+# kill_jar "auth-prod.jar"
+kill_jar() {
+    if [ $# != 1 ] || [ -z "$1" ]; then
+        error_and_exit "usage: kill_jar \"运行的 jar 包路径\""
+    fi
+    process="`ps aux | grep ${1} | grep java | grep -v grep | awk '{print $2}'`"
+    log "项目 ${1} 进程号: (${process})"
+    if [ -n "${process}" ]; then
+        log "强行杀掉 ${1} 进程: ${process}"
+        kill -9 "${process}"
+    fi
+}
+
+# 根据 Tomcat 路径杀进程
+# kill_tomcat "/home/upay/tomcat-upay-server/bin/bootstrap.jar"
+kill_tomcat() {
+    if [ $# != 1 ] || [ -z "$1" ]; then
+        error_and_exit "usage: kill_jar \"运行的 jar 包路径\""
+    fi
+    process="`ps aux | grep ${1} | grep java | grep -v grep | awk '{print $2}'`"
+    log "项目 ${1} 进程号: (${process})"
+    if [ -n "${process}" ]; then
+        log "强行杀掉 ${1} 进程: ${process}"
+        kill -9 "${process}"
+    fi
+}
+
+# 启动jar包
+# start_jar "/home/upay/deploy_packages/project/auth-prod.jar"
+start_jar() {
+    if [ -z "$1" ]; then
+        error_and_exit "usage: start_jar \"运行的 jar 包路径\" \"gc 文件名\""
+    fi
+
+    check_file "$1"
+	if [ -n "$machineId" ]; then
+		  /home/coin/program/jdk10/bin/java -Dmachine.serverId="$machineId" "$java_params" -Denv=pre -XX:+PrintGCDetails -verbose:gc  -Djava.security.egd=file:/dev/./urandom  -Xmx1024m -jar ${1} &
+	else
+		  /home/coin/program/jdk10/bin/java "$java_params"  -Denv=pre -XX:+PrintGCDateStamps -XX:+PrintGCDetails -verbose:gc  -Djava.security.egd=file:/dev/./urandom  -Xmx1024m -jar ${1} &
+	fi
+	
+    sleep 20
+    log "进程 ${1} 信息:\n`ps aux | grep -v grep | grep java | grep --color=auto ${1}`"
+}
+
+# 启动tomcat
+# start_tomcat "/home/upay/tomcat-upay-server/bin/"
+start_tomcat() {
+    if [ -z "$1" ]; then
+        error_and_exit "usage: start_jar \"运行的 jar 包路径\" \"gc 文件名\""
+    fi
+    check_file "$1"
+    #cd $1
+    log "$1/bin/catalina.sh run"
+    "$1/bin/"catalina.sh run &
+    sleep 20
+    log "进程 ${1} 信息:\n`ps aux | grep -v grep | grep java | grep --color=auto ${1}`"
+}
+
+# 发布部署包
+release_jar() {
+    check_directory "${source}"
+    if [ $# != 6 ] || [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ] || [ -z "$6" ]; then
+        error_and_exit "usage: release_jar \"发布包文字说明\" \"模块名\" \"文件名(不带后缀)\" \"发布包后缀\" \"部署目录\" \"gc 文件名\""
+    fi
+    comment="$1"
+    package="$2"
+    file_name="$3"
+    suffix="$4"
+    publish_path="$5"
+    gc_file="$6"
+
+    release="${publish_package_path}/${file_name}.${suffix}"
+##    if [ ! -e "${release}" ]; then
+       ## error_and_exit "没有此发布包: ${release}, 请确认是否上传部署包"
+##    fi
+
+#    backup_release="${backup}/${package}-${now}.${suffix}"
+
+    log "开始发布「${comment}」"
+#    backup_project "${current_release}" "${backup_release}" "${revert}"
+		if [ "jar" == ${suffix} ];then
+			publish_release="${publish_path}/${file_name}.${suffix}"
+			kill_jar "${publish_release=}"
+			cp "${release}" "${publish_release}"
+			start_jar "${publish_release}" "${gc_file}"
+			log "「${comment}」发布完成"
+		elif [ "war" == ${suffix} ];then
+			# kill_tomcat "${publish_path}/bin/bootstrap.jar"
+			"${publish_path}/bin/shutdown.sh"
+			publish_release="${publish_path}/webapps/${file_name}.${suffix}"
+			log "${publish_release}"
+			rm -rf  "${publish_path}/webapps/${file_name}*"
+			rm -rf  "${publish_path}/work/*"			
+			rm -rf  "${publish_path}/temp/*"
+			cp "${release}" "${publish_release}"
+			start_tomcat "${publish_path}" "${gc_file}"
+			log "「${comment}」发布完成"
+		else
+			print_error "未识别的发布包类型"
+		fi
+    
+}
+
+
+case "$1" in
+#    restart)
+#        update
+#        compile "siteProvide,accountProvide,userProvide,businessProvide,tradeProvide"
+#        release_jar "公共模块" "siteProvide" "site-provide-8108" "gc-site.log" "revert_site"
+#        release_jar "账户中心模块" "accountProvide" "account-provide-8107" "gc-account.log" "revert_account"
+#        release_jar "用户中心模块" "userProvide" "user-provide-8104" "gc-user.log" "revert_user"
+#        release_jar "商圈模块" "businessProvide" "business-provide-8105" "gc-business.log" "revert_business"
+#        release_jar "交易中心模块" "tradeProvide" "trade-provide-8106" "gc-trade.log" "revert_trade"
+#        ;;
+    
+    *)
+        for i in ${!module_name_arr[@]}; do
+            name="${module_name_arr[$i]}"
+            desc="${module_desc_arr[$i]}"
+            file="${module_file_arr[$i]}"
+            suffix="${module_file_type[$i]}"
+            publish_path="${module_deploy_path_arr[$i]}"
+
+            if [ "$1" == "${name}" ]; then
+                release_jar "${desc}" "${name}" "${file}" "${suffix}" "${publish_path}" "gc-${name}.log"
+                exit 1
+#            elif [ "$1" == "restart_${name}" ]; then
+#                kill_jar "${publish}/${file}.jar"
+#                start_jar "${publish}/${file}.jar" "gc-${name}.log"
+#                exit 1
+#            elif [ "$1" == "revert_${name}" ]; then
+#                revert_jar "${desc}" "${name}" "${file}" "gc-${name}.log" "$2"
+#                exit 1
+            fi
+        done
+
+        echo "usage:"
+#        echo "  「${current_file} restart」     打包及发布需要频繁更新的模块(权限Auth,平台端-后台-Upay)"
+        echo ""
+        for i in ${!module_name_arr[@]}; do
+            name="${module_name_arr[$i]}"
+            desc="${module_desc_arr[$i]}"
+            file="${module_file_arr[$i]}"
+            if [ -n "${name}" ] && [ -n "${desc}" ] && [ -n "${file}" ]; then
+                echo "  「${current_file} ${name}」                     发布「${desc}」"
+#                echo "  「${current_file} restart_${name}」            重启「${desc}」"
+#                echo "  「${current_file} revert_${name} {timestamp}」 还原「${desc}」"
+                echo ""
+            fi
+        done
+#        echo -e "   \033[31m{timestamp} 若不记得请去 ${log_path}/INSTALL.log 查看\033[0m"
+esac
+exit 1
+
+
+
+/home/coin/deploy_packages/project/pre.sh queryPrice 200006 '-Dspring.data.mongodb.uri=mongodb://nats:RWUOB9s2wBoaXM91@10.140.0.4:27017/gateway -Dkingq.enable=true'

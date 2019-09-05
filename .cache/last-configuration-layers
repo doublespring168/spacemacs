@@ -1,2 +1,2 @@
 
-(setq dotspacemacs-configuration-layers (quote (yaml helm auto-completion better-defaults emacs-lisp git markdown neotree org (shell :variables shell-default-width 40 shell-default-position (quote right)) spell-checking syntax-checking sql)))
+(setq dotspacemacs-configuration-layers (quote (html php javascript helm auto-completion better-defaults emacs-lisp git markdown neotree org (shell :variables shell-default-width 40 shell-default-position (quote right)) spell-checking syntax-checking sql)))

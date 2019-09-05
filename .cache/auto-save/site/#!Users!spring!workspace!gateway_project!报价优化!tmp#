@@ -1,0 +1,16 @@
+SELECT 
+	id,
+	portId,
+	`symbol`,
+	`ext1` AS 'ext1',
+	num AS 'num',
+	five AS 'five',
+	ten AS 'ten',
+	fifteen AS 'fifteen',
+	twenty AS 'twenty',
+	fifty AS 'fifty',
+	onehundred AS 'onehundred'
+
+ FROM sk_mq_time_data smtd  
+
+WHERE five IS NOT NULL AND `id`>5501 AND `id`<27343 ORDER BY `id` DESC;
